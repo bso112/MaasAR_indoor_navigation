@@ -38,20 +38,23 @@ public class AugmentedImageController : MonoBehaviour
             console.text = "Session:" + Session.Status.ToString() + image.Name + ": " + image.TrackingState.ToString();
 
 
-            if (image.TrackingState == TrackingState.Tracking && !flag)
-            {
-                console4.text = "이미지 너비 : " + image.ExtentX + "이미지 높이 : " + image.ExtentZ;
 
+            if (image.TrackingState == TrackingState.Tracking)
+            {
                 Anchor anchor = image.CreateAnchor(image.CenterPose);
                 parent.transform.parent = anchor.transform;
                 parent.transform.localPosition = new Vector3(0, 0, 0);
                 Vector3 position = parent.transform.position;
-
+                if(!flag)
+                {
+                    parentInstances.Add(Instantiate(parent, parent.transform.position, Quaternion.identity));
+                    flag = true;
+                }
+                console4.text = "이미지 너비 : " + image.ExtentX + "이미지 높이 : " + image.ExtentZ;
                 console2.text = "부모 포지션 : " + position.ToString() + "부모 로테이션 : " + parent.transform.rotation.ToString();
 
-                parentInstances.Add(Instantiate(parent, parent.transform.position, Quaternion.identity));
 
-                flag = true;
+                
             }
         }
     }

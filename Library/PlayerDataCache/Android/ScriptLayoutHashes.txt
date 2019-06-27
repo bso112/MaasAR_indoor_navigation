@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/bso11/Desktop/workspace/UnityWork/Done/ARCore_1.9_Unity_18.3.1_Maas/test01.apk
+C:/Users/bso11/Desktop/workspace/UnityWork/ARCore_1.9_Unity_18.3.1_Maas/test01.apk
 SceneListBegin?
 Assets/Scenes/SampleScene.unity
 SceneListEnd?
@@ -130,7 +130,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 2e0886e8d3f35ed19554346d12fefe93 Assembly-CSharp.dll:GoogleARCore.Examples.HelloAR.HelloARController
 94017dcc9f00fe671ea7dc427b4da011 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
 b6337c40e664256917540c23828614b4 Assembly-CSharp.dll:GoogleARCore.Examples.AugmentedImage.AugmentedImageVisualizer
-101b9037e9f928f18d281035aba5ce20 Assembly-CSharp.dll:.ObjectDragger
+447856dd88274a00cdae5eca4ffd7b4a Assembly-CSharp.dll:.ObjectDragger
 0077fc8e4fbae67f80e80ebd534de5a0 Vuforia.UnityExtensions.dll:Vuforia.AnchorBehaviour
 f8b139fcde9fda6214245df246415cc7 Vuforia.UnityExtensions.dll:Vuforia.AnchorInputListenerBehaviour
 0077fc8e4fbae67f80e80ebd534de5a0 Vuforia.UnityExtensions.dll:Vuforia.AnchorStageBehaviour

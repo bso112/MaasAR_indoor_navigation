@@ -110,10 +110,10 @@ MonoBehaviour:
     y: 30
     width: 1366
     height: 675
-  m_MinSize: {x: 683, y: 348}
-  m_MaxSize: {x: 12008, y: 8048}
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 1
-  controlID: 1531
+  controlID: 81
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -136,10 +136,10 @@ MonoBehaviour:
     y: 0
     width: 1366
     height: 675
-  m_MinSize: {x: 683, y: 348}
-  m_MaxSize: {x: 12008, y: 8048}
+  m_MinSize: {x: 713, y: 498}
+  m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 1532
+  controlID: 82
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -187,10 +187,10 @@ MonoBehaviour:
     y: 0
     width: 784
     height: 675
-  m_MinSize: {x: 204, y: 348}
-  m_MaxSize: {x: 4004, y: 8048}
+  m_MinSize: {x: 234, y: 498}
+  m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
-  controlID: 1499
+  controlID: 63
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -238,16 +238,16 @@ MonoBehaviour:
     y: 401
     width: 784
     height: 274
-  m_MinSize: {x: 104, y: 124}
-  m_MaxSize: {x: 4004, y: 4024}
-  m_ActualView: {fileID: 17}
+  m_MinSize: {x: 234, y: 274}
+  m_MaxSize: {x: 10004, y: 10024}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
   - {fileID: 18}
   - {fileID: 19}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -384,9 +384,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 04490000
-      m_LastClickedID: 18692
-      m_ExpandedIDs: 12e6ffff32e6ffff4ce6ffffd2e8ffff12eeffff34eeffff4eeeffffd4f0ffff38f2ffff58f2ffff72f2fffffaf4ffff9ef7ffffbef7ffffd8f7ffff5efaffffb2fbffffc8310000ea350000d2360000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 6ef4ffff8ef4ffffa8f4ffff2ef7ffffeaf7ffff0af8ffff24f8ffffaefaffffccfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -598,14 +598,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Scripts
   m_LastFoldersGridSize: 60
-  m_LastProjectPath: C:\Users\bso11\Desktop\workspace\UnityWork\Done\ARCore_1.9_Unity_18.3.1_Maas
+  m_LastProjectPath: C:\Users\bso11\Desktop\workspace\UnityWork\ARCore_1.9_Unity_18.3.1_Maas
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 103}
-    m_SelectedIDs: c22c0000
-    m_LastClickedID: 11458
-    m_ExpandedIDs: 00000000ce2900009c2a0000a42a0000a82c0000842d000000ca9a3b
+    m_SelectedIDs: d22c0000
+    m_LastClickedID: 11474
+    m_ExpandedIDs: 00000000de290000ac2a0000b42a0000b82c0000942d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -633,7 +633,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: f82e0000
     m_LastClickedID: 12024
-    m_ExpandedIDs: 00000000ce2900009c2a0000a42a0000a82c0000842d000000ca9a3b
+    m_ExpandedIDs: 00000000de290000ac2a0000b42a0000b82c0000942d0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000862a0000f82c0000d02b00003e2e00003c2e0000ec2a0000ba070000c82f000078300000ce52000004380000d62c0000ac2d0000622d00007a2d00000a2b0000542e0000762d0000162d0000a62c000034470000122f0000de2a0000e02900000e2b000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1104,7 +1104,7 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 18692
+  m_LastSelectedObjectID: 12890
 --- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52

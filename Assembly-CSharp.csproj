@@ -247,6 +247,7 @@
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPSessionStatus.cs" />
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPTrackingState.cs" />
     <Compile Include="Assets\Scripts\AugmentedImageController.cs" />
+    <Compile Include="Assets\Scripts\Global_Local_Test.cs" />
     <Compile Include="Assets\Scripts\ObjectDragger.cs" />
     <Compile Include="Assets\Scripts\PathSpawner.cs" />
     <Compile Include="Assets\Scripts\SaveTest.cs" />

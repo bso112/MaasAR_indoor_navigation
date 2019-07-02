@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using GoogleARCore;
-
+using UnityEngine.EventSystems;
 
 public class ObjectDragger : MonoBehaviour
 {
@@ -32,8 +32,10 @@ public class ObjectDragger : MonoBehaviour
 
         if (!Input.GetMouseButtonDown(0)) return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //if (Input.touchCount <= 0) return;
-        //Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+
+        //UI를 조작하고 있으면 아무것도 하지 않는다.
+        if (IsPointerOverUIObject())
+            return;
 
         if (Frame.Raycast(ray.origin, ray.direction, out TrackableHit result))
         {
@@ -67,12 +69,9 @@ public class ObjectDragger : MonoBehaviour
         }
     }
 
-    public void BackAndFoward(Slider slider)
+    public void Rotate(Slider slider)
     {
-        Vector3 newPosition = obj.transform.position;
-        newPosition.z += slider.value;
-        obj.transform.position = newPosition;
-
+        obj.transform.rotation = Quaternion.Euler(new Vector3(0, slider.value, 0));
     }
 
     public void Drag(string direction)
@@ -98,6 +97,19 @@ public class ObjectDragger : MonoBehaviour
                 break;
 
         }
+    }
+
+    /// <summary>
+    /// 마우스포인터가 UI엘레멘트 위에 있는가?
+    /// </summary>
+    /// <returns></returns>
+    public static bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 }
 

@@ -62,7 +62,7 @@ public PathData pathData = new PathData();
     /// <summary>
     /// 경로 리스트
     /// </summary>
-    protected List<GameObject> paths = new List<GameObject>(); 
+    protected List<GameObject> paths = new List<GameObject>();
 
     public AugmentedImageController augmentedImageController;
     public Text console;
@@ -84,12 +84,12 @@ public PathData pathData = new PathData();
         generateMapBtn.gameObject.SetActive(false);
         createMapBtn.gameObject.SetActive(true);
     }
+
     /// <summary>
     /// 경로 만들기를 종료하고 경로 목록에 저장한다. 
     /// </summary>
     public void CreatePath(Text InputText)
     {
-        StopCoroutine("SpawnObjectPerSecond");
 
         string pathName = InputText.text;
         
@@ -117,7 +117,13 @@ public PathData pathData = new PathData();
     /// 경로를 불러온다.
     /// </summary>
     public void LoadPath(Text InputText)
-    {
+    {   
+        //저장하고 (게임 다시시작 안하고) 바로 불러오기 할 경우, 단지 숨겼던 경로를 보여준다.
+        if(path != null)
+        {
+            path.SetActive(true);
+            return;
+        }
         string pathName = InputText.text;
 
         PathData pathData = new PathData();
@@ -140,6 +146,7 @@ public PathData pathData = new PathData();
         {
             Debug.Log(pathData.childPositions[i].ToString());
             GameObject obj = Instantiate(pathObject);
+            obj.name = "Loaded Path";
             obj.transform.SetParent(parent.transform);
             obj.transform.localPosition = pathData.childPositions[i];
         }
@@ -155,8 +162,8 @@ public PathData pathData = new PathData();
         pathData.pathName = pathName;
         foreach (var child in path.transform.GetComponentsInChildren<Transform>())
         {
-            //부모가 아니면 실행한다.
-            if (child.transform != path.transform)
+            //parent 오브젝트가 아니고, 자식이 있는 오브젝트면 위치를 저장한다.(path 프리펩의 선글라스 위치까지 저장 안하기 위해) 
+            if (child.transform != path.transform && child.transform.childCount > 0)
             {
                 pathData.childPositions.Add(child.transform.localPosition);
             }
@@ -168,16 +175,11 @@ public PathData pathData = new PathData();
         b.Serialize(f, pathData); // 경로정보 저장.
         console.text = Application.persistentDataPath + "에 저장되었습니다.";
 
+        
+
         f.Close();
 
 
-
-    }
-
-
-    public void DeleteAllMap()
-    {
-        PlayerPrefs.DeleteAll();
 
     }
 

@@ -247,12 +247,12 @@
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPSessionStatus.cs" />
     <Compile Include="Assets\GoogleARCore\SDK\Scripts\XPTrackingState.cs" />
     <Compile Include="Assets\Scripts\AugmentedImageController.cs" />
-    <Compile Include="Assets\Scripts\ConfirmMapSelection.cs" />
     <Compile Include="Assets\Scripts\FileSaveTest.cs" />
     <Compile Include="Assets\Scripts\Global_Local_Test.cs" />
     <Compile Include="Assets\Scripts\ObjectDragger.cs" />
+    <Compile Include="Assets\Scripts\PathListUpdater.cs" />
     <Compile Include="Assets\Scripts\PathSpawner.cs" />
-    <Compile Include="Assets\Scripts\SelectMapBtn.cs" />
+    <Compile Include="Assets\Scripts\SelectPathBtn.cs" />
     <Compile Include="Assets\Scripts\Vector.cs" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
     <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />

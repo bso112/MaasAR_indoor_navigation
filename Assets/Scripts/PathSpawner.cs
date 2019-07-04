@@ -24,10 +24,25 @@ public class PathSpawner : MonoBehaviour
         public List<Vector.SerializableVector3> childPositions = new List<Vector.SerializableVector3>();
     }
 
-    /// <summary>
-    /// 경로 하나에 대한 정보
-    /// </summary>
-    public PathData pathData = new PathData();
+
+    public static PathSpawner Instance { get; private set; }
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        Instance = this;
+
+    }
+
+
+
+/// <summary>
+/// 경로 하나에 대한 정보
+/// </summary>
+public PathData pathData = new PathData();
     /// <summary>
     /// UI들.
     /// </summary>
@@ -72,10 +87,11 @@ public class PathSpawner : MonoBehaviour
     /// <summary>
     /// 경로 만들기를 종료하고 경로 목록에 저장한다. 
     /// </summary>
-    public void CreatePath()
+    public void CreatePath(Text InputText)
     {
         StopCoroutine("SpawnObjectPerSecond");
 
+        string pathName = InputText.text;
         
         GameObject parent = augmentedImageController.parentInstances[0];
         foreach (var pathObj in GameObject.FindGameObjectsWithTag("pathObject"))
@@ -90,7 +106,7 @@ public class PathSpawner : MonoBehaviour
             paths.Add(path);
         }
 
-        SavePath();
+        SavePath(pathName);
         path.SetActive(false);
         //버튼을 교체한다.
         createMapBtn.gameObject.SetActive(false);
@@ -100,33 +116,19 @@ public class PathSpawner : MonoBehaviour
     /// <summary>
     /// 경로를 불러온다.
     /// </summary>
-    public void LoadPath()
+    public void LoadPath(Text InputText)
     {
-        //Vector3[] newPositions = new Vector3[100]; //자식들의 세이브데이터에서 받아와 위치를 저장할 벡터
-        //GameObject parent = augmentedImageController.parentInstances[0];
-
-        //int length = PlayerPrefs.GetInt("length");
-
-        //for (int i = 0; i < length; i++)
-        //{
-        //    newPositions[i].x = PlayerPrefs.GetFloat("x" + i);
-        //    newPositions[i].y = PlayerPrefs.GetFloat("y" + i);
-        //    newPositions[i].z = PlayerPrefs.GetFloat("z" + i);
-        //    GameObject obj = Instantiate(pathObject);
-        //    obj.transform.SetParent(parent.transform);
-        //    obj.transform.localPosition = newPositions[i];
-        //}
-
+        string pathName = InputText.text;
 
         PathData pathData = new PathData();
         GameObject parent = augmentedImageController.parentInstances[0];
-        if (File.Exists(Application.persistentDataPath + "/pathData.dat")) //비어있지 않으면 로드!
+        if (File.Exists(Application.persistentDataPath + "/" + pathName + ".dat")) //비어있지 않으면 로드!
 
         {
 
             var b = new BinaryFormatter(); //바이너리 포맷터
 
-            var f = File.Open(Application.persistentDataPath + "/pathData.dat", FileMode.Open); // 파일 열기.
+            var f = File.Open(Application.persistentDataPath + "/" + pathName + ".dat", FileMode.Open); // 파일 열기.
 
             pathData = (PathData)b.Deserialize(f); //스코어를 로드. 디 시리얼라이즈.
 
@@ -145,27 +147,12 @@ public class PathSpawner : MonoBehaviour
     }
 
     //길을 세이브한다.
-    public void SavePath()
+    public void SavePath(string pathName)
     {
-        //int i = 0;
-        //foreach (var child in path.transform.GetComponentsInChildren<Transform>())
-        //{   
-        //    //부모가 아니면 실행한다.
-        //    if(child.transform != path.transform)
-        //    {
-        //        PlayerPrefs.SetFloat("x" + i, child.localPosition.x);
-        //        PlayerPrefs.SetFloat("y" + i, child.localPosition.y);
-        //        PlayerPrefs.SetFloat("z" + i, child.localPosition.z);
-        //        i++;
-        //    }
-
-        //}
-        //PlayerPrefs.SetInt("length", i);
-        //PlayerPrefs.Save();
 
 
         //파일 저장 테스트
-        pathData.pathName = "테스트";
+        pathData.pathName = pathName;
         foreach (var child in path.transform.GetComponentsInChildren<Transform>())
         {
             //부모가 아니면 실행한다.
@@ -177,7 +164,7 @@ public class PathSpawner : MonoBehaviour
         }
 
         var b = new BinaryFormatter(); //BinartFormatter를 받아옴
-        var f = File.Create(Application.persistentDataPath + "/pathData.dat"); //파일을 생성.
+        var f = File.Create(Application.persistentDataPath + "/" + pathName + ".dat"); //파일을 생성.
         b.Serialize(f, pathData); // 경로정보 저장.
         console.text = Application.persistentDataPath + "에 저장되었습니다.";
 

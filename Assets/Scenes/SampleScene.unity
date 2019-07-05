@@ -1919,7 +1919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &550185968
 Transform:
   m_ObjectHideFlags: 0
@@ -6321,7 +6321,6 @@ MonoBehaviour:
   pathData:
     pathName: noName
     childPositions: []
-    path: {fileID: 0}
   generateMapBtn: {fileID: 471215769}
   createMapBtn: {fileID: 1360928630}
   loadMapBtn: {fileID: 1019993698}

@@ -8,8 +8,14 @@ public class AugmentedImageController : MonoBehaviour
 {
     private List<AugmentedImage> currentDetectedAugementedImages = new List<AugmentedImage>();
     [SerializeField] private GameObject parent;
-    [HideInInspector] public List<GameObject> parentInstances = new List<GameObject>();
-
+    private List<GameObject> parentInstances = new List<GameObject>();
+    public List<GameObject> GetPathParent()
+    {
+        if (parentInstances.Count <= 0)
+        { Debug.Log("경로의 부모오브젝트가 없습니다"); console4.text = "경로의 부모오브젝트가 없습니다"; }
+        else { return parentInstances; }
+        return null;
+    }
     public Text console;
     public Text console2;
     public Text console4;
@@ -45,7 +51,7 @@ public class AugmentedImageController : MonoBehaviour
                 parent.transform.parent = anchor.transform;
                 parent.transform.localPosition = new Vector3(0, 0, 0);
                 Vector3 position = parent.transform.position;
-                if(!flag)
+                if (!flag)
                 {
                     parentInstances.Add(Instantiate(parent, parent.transform.position, Quaternion.identity));
                     flag = true;
@@ -54,7 +60,7 @@ public class AugmentedImageController : MonoBehaviour
                 console2.text = "부모 포지션 : " + position.ToString() + "부모 로테이션 : " + parent.transform.rotation.ToString();
 
 
-                
+
             }
         }
     }

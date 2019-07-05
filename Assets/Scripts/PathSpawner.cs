@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary; //Formatters 쓸려고..
 /// <summary>
 /// 경로를 생성하는 클래스
 /// </summary>
+<<<<<<< Updated upstream
 public class PathSpawner : MonoBehaviour
 {
 
@@ -26,6 +27,11 @@ public class PathSpawner : MonoBehaviour
 
 
 
+=======
+public class PathSpawner : Singleton<PathSpawner>
+{
+
+>>>>>>> Stashed changes
     /// <summary>
     /// 경로 하나에 대한 정보
     /// </summary>
@@ -46,10 +52,13 @@ public class PathSpawner : MonoBehaviour
     /// 하나의 경로
     /// </summary>
     protected GameObject path;
+<<<<<<< Updated upstream
     /// <summary>
     /// 경로 리스트
     /// </summary>
     protected List<GameObject> paths = new List<GameObject>();
+=======
+>>>>>>> Stashed changes
 
     public AugmentedImageController augmentedImageController;
     public Text console;
@@ -80,20 +89,32 @@ public class PathSpawner : MonoBehaviour
 
         string pathName = InputText.text;
 
+<<<<<<< Updated upstream
         GameObject parent = augmentedImageController.parentInstances[0];
+=======
+        GameObject parent = augmentedImageController.GetPathParent()[0];
+>>>>>>> Stashed changes
         foreach (var pathObj in GameObject.FindGameObjectsWithTag("pathObject"))
         {
             pathObj.transform.SetParent(parent.transform);
         }
-
+        //경로의 부모(파란 경로 오브젝트)를 포함한 경로를 path에 넣는다.
         path = parent;
+<<<<<<< Updated upstream
 
         if (path != null)
         {
             paths.Add(path);
         }
+=======
+        
+        //라우팅 테이블을 실시간으로 업데이트한다.(경로 생성 될때마다)
+        PathRouter.Instance.UpdatePathList(pathName, path);
+>>>>>>> Stashed changes
 
+        //로컬에 경로를 저장한다.
         SavePath(pathName);
+        //현재 만든 경로를 숨긴다.
         path.SetActive(false);
         //버튼을 교체한다.
         createMapBtn.gameObject.SetActive(false);
@@ -114,7 +135,7 @@ public class PathSpawner : MonoBehaviour
         string pathName = InputText.text;
 
         PathData pathData = new PathData();
-        GameObject parent = augmentedImageController.parentInstances[0];
+        GameObject parent = augmentedImageController.GetPathParent()[0];
         if (File.Exists(Application.persistentDataPath + "/" + pathName + ".dat")) //비어있지 않으면 로드!
 
         {
@@ -144,8 +165,7 @@ public class PathSpawner : MonoBehaviour
     public void SavePath(string pathName)
     {
 
-
-        //파일 저장 테스트
+        //pathData.path = path;
         pathData.pathName = pathName;
         foreach (var child in path.transform.GetComponentsInChildren<Transform>())
         {

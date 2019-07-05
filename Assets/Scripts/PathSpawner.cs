@@ -10,20 +10,7 @@ using System.Runtime.Serialization.Formatters.Binary; //Formatters 쓸려고..
 /// 경로를 생성하는 클래스
 /// </summary>
 public class PathSpawner : MonoBehaviour
-{   
-    [System.Serializable]
-    public class PathData
-    {   
-        /// <summary>
-        /// 경로 이름
-        /// </summary>
-        public string pathName = "noName";
-        /// <summary>
-        /// 자식 오브젝트들의 위치
-        /// </summary>
-        public List<Vector.SerializableVector3> childPositions = new List<Vector.SerializableVector3>();
-    }
-
+{
 
     public static PathSpawner Instance { get; private set; }
 
@@ -39,10 +26,10 @@ public class PathSpawner : MonoBehaviour
 
 
 
-/// <summary>
-/// 경로 하나에 대한 정보
-/// </summary>
-public PathData pathData = new PathData();
+    /// <summary>
+    /// 경로 하나에 대한 정보
+    /// </summary>
+    public PathData pathData = new PathData();
     /// <summary>
     /// UI들.
     /// </summary>
@@ -58,7 +45,7 @@ public PathData pathData = new PathData();
     /// <summary>
     /// 하나의 경로
     /// </summary>
-    protected GameObject path; 
+    protected GameObject path;
     /// <summary>
     /// 경로 리스트
     /// </summary>
@@ -92,7 +79,7 @@ public PathData pathData = new PathData();
     {
 
         string pathName = InputText.text;
-        
+
         GameObject parent = augmentedImageController.parentInstances[0];
         foreach (var pathObj in GameObject.FindGameObjectsWithTag("pathObject"))
         {
@@ -100,8 +87,8 @@ public PathData pathData = new PathData();
         }
 
         path = parent;
-        
-        if(path != null)
+
+        if (path != null)
         {
             paths.Add(path);
         }
@@ -117,9 +104,9 @@ public PathData pathData = new PathData();
     /// 경로를 불러온다.
     /// </summary>
     public void LoadPath(Text InputText)
-    {   
+    {
         //저장하고 (게임 다시시작 안하고) 바로 불러오기 할 경우, 단지 숨겼던 경로를 보여준다.
-        if(path != null)
+        if (path != null)
         {
             path.SetActive(true);
             return;
@@ -175,7 +162,7 @@ public PathData pathData = new PathData();
         b.Serialize(f, pathData); // 경로정보 저장.
         console.text = Application.persistentDataPath + "에 저장되었습니다.";
 
-        
+
 
         f.Close();
 

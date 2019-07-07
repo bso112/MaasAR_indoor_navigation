@@ -12,6 +12,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Parent
       objectReference: {fileID: 0}
+    - target: {fileID: 513917624737524898, guid: c094e7a8becbcd141aca8c68a68a1c34,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 5811301350181567817, guid: c094e7a8becbcd141aca8c68a68a1c34,
         type: 3}
       propertyPath: m_LocalPosition.x

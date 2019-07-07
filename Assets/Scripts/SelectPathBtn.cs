@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class SelectPathBtn : MonoBehaviour
 {
     private Button btn;
-
+    private static int selectionCount = 0;
 
     private void Start()
     {
@@ -15,13 +15,16 @@ public class SelectPathBtn : MonoBehaviour
     }
 
 
+
     /// <summary>
     /// 맵 불러오기 - 맵 리스트 - 맵 선택
     /// </summary>
     public void SetSeletedButtonInfo()
     {
-        PathListUpdater.SelectedPathText = transform.GetComponentInChildren<Text>();
+        PathListUpdater.selectedPathText[selectionCount++] = transform.GetComponentInChildren<Text>();
+
     }
+
 
 
 }

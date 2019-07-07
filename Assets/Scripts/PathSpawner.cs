@@ -12,10 +12,7 @@ using System.Runtime.Serialization.Formatters.Binary; //Formatters 쓸려고..
 public class PathSpawner : Singleton<PathSpawner>
 {
 
-    /// <summary>
-    /// 경로 하나에 대한 정보
-    /// </summary>
-    public PathData pathData = new PathData();
+
     /// <summary>
     /// UI들.
     /// </summary>
@@ -32,15 +29,21 @@ public class PathSpawner : Singleton<PathSpawner>
     /// 하나의 경로
     /// </summary>
     protected GameObject path;
+    /// <summary>
+    /// 부모 오브젝트
+    /// </summary>
+    private GameObject parent;
 
     public AugmentedImageController augmentedImageController;
     public Text console;
 
     IEnumerator SpawnObjectPerSecond()
     {
+        //부모 오브젝트를 생성
+        parent = augmentedImageController.GetPathParentClone();
         while (true)
         {
-            Instantiate(pathObject, player.transform.position, Quaternion.identity);
+            Instantiate(pathObject, player.transform.position, Quaternion.identity).transform.SetParent(parent.transform); //만들어진 pathObject를 parent의 자식으로 한다.
             yield return new WaitForSeconds(1.0f);
         }
     }
@@ -62,21 +65,14 @@ public class PathSpawner : Singleton<PathSpawner>
 
         string pathName = InputText.text;
 
-        GameObject parent = augmentedImageController.GetPathParent()[0];
-        foreach (var pathObj in GameObject.FindGameObjectsWithTag("pathObject"))
-        {
-            pathObj.transform.SetParent(parent.transform);
-        }
-        //경로의 부모(파란 경로 오브젝트)를 포함한 경로를 path에 넣는다.
+
+
+        //만들어진 경로를 path에 넣는다.
         path = parent;
-        
-        //라우팅 테이블을 실시간으로 업데이트한다.(경로 생성 될때마다)
-        PathRouter.Instance.UpdatePathList(pathName, path);
 
         //로컬에 경로를 저장한다.
-        SavePath(pathName);
-        //현재 만든 경로를 숨긴다.
-        path.SetActive(false);
+        SavePath(path, pathName);
+
         //버튼을 교체한다.
         createMapBtn.gameObject.SetActive(false);
         generateMapBtn.gameObject.SetActive(true);
@@ -85,18 +81,13 @@ public class PathSpawner : Singleton<PathSpawner>
     /// <summary>
     /// 경로를 불러온다.
     /// </summary>
-    public void LoadPath(Text InputText)
+    public GameObject LoadPath(Text InputText)
     {
-        //저장하고 (게임 다시시작 안하고) 바로 불러오기 할 경우, 단지 숨겼던 경로를 보여준다.
-        if (path != null)
-        {
-            path.SetActive(true);
-            return;
-        }
+
         string pathName = InputText.text;
 
         PathData pathData = new PathData();
-        GameObject parent = augmentedImageController.GetPathParent()[0];
+        GameObject parent = augmentedImageController.GetPathParentClone();
         if (File.Exists(Application.persistentDataPath + "/" + pathName + ".dat")) //비어있지 않으면 로드!
 
         {
@@ -113,23 +104,23 @@ public class PathSpawner : Singleton<PathSpawner>
 
         for (int i = 0; i < pathData.childPositions.Count; i++)
         {
-            Debug.Log(pathData.childPositions[i].ToString());
             GameObject obj = Instantiate(pathObject);
             obj.name = "Loaded Path";
             obj.transform.SetParent(parent.transform);
             obj.transform.localPosition = pathData.childPositions[i];
         }
 
+        return parent;
     }
 
     //길을 세이브한다.
-    public void SavePath(string pathName)
+    public void SavePath(GameObject path, string pathName)
     {
-
+        PathData pathData = new PathData();
         pathData.pathName = pathName;
         foreach (var child in path.transform.GetComponentsInChildren<Transform>())
         {
-            //parent 오브젝트가 아니고, 자식이 있는 오브젝트면 위치를 저장한다.(path 프리펩의 선글라스 위치까지 저장 안하기 위해) 
+            //path 오브젝트가 아니고, 자식이 있는 오브젝트면 위치를 저장한다.(path 프리펩의 선글라스 같은 말단 오브젝트의 위치는 저장 안함) 
             if (child.transform != path.transform && child.transform.childCount > 0)
             {
                 pathData.childPositions.Add(child.transform.localPosition);
@@ -141,8 +132,7 @@ public class PathSpawner : Singleton<PathSpawner>
         var f = File.Create(Application.persistentDataPath + "/" + pathName + ".dat"); //파일을 생성.
         b.Serialize(f, pathData); // 경로정보 저장.
         console.text = Application.persistentDataPath + "에 저장되었습니다.";
-
-
+        PathRouter.Instance.AddPathData(pathData, name); //라우팅테이블 갱신
 
         f.Close();
 

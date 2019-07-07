@@ -31,11 +31,18 @@ public class PathListUpdater : MonoBehaviour
     public Text console;
 
     /// <summary>
-    /// 사용자가 선택한 경로이름
+    /// 사용자가 선택한 경로이름(경로 합치기를 위해 2개까지 선택 가능)
     /// </summary>
-    [HideInInspector] public static Text SelectedPathText;
+    [HideInInspector] public static Text[] selectedPathText = new Text[2];
 
 
+    private void Start()
+    {
+        files = Directory.GetFiles(Application.persistentDataPath, $"*.dat");
+    }
+    /// <summary>
+    /// 경로 리스트를 업데이트한다. 맵 불러오기 버튼을 누르면 실행한다. 
+    /// </summary>
     public void UpdatePathList()
     {
         files = Directory.GetFiles(Application.persistentDataPath, $"*.dat");
@@ -69,6 +76,17 @@ public class PathListUpdater : MonoBehaviour
         }
     }
 
+    public void JoinTwoPathAndSave(Text inputText)
+    {
+        if(selectedPathText.Length >= 2)
+        {
+            GameObject parentA = PathSpawner.Instance.LoadPath(selectedPathText[0]);
+            GameObject parentB = PathSpawner.Instance.LoadPath(selectedPathText[1]);
+            PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text);
+        }
+        
+    }
+
     public void DeleteAllPaths()
     {
         if (files != null)
@@ -94,9 +112,9 @@ public class PathListUpdater : MonoBehaviour
 
     public void DeletePath()
     {
-        if (SelectedPathText != null)
+        if (selectedPathText != null)
         {
-            string pathName = SelectedPathText.text;
+            string pathName = selectedPathText[0].text;
 
             try
             {
@@ -109,15 +127,15 @@ public class PathListUpdater : MonoBehaviour
                 Debug.Log(e.Message);
             }
 
-            Destroy(SelectedPathText.transform.parent.gameObject); //해당 버튼을 파괴한다.
+            Destroy(selectedPathText[0].transform.parent.gameObject); //해당 버튼을 파괴한다.
         }
 
     }
 
     public void ConfirmPathSelection()
     {
-        if (SelectedPathText != null)
-            PathSpawner.Instance.LoadPath(SelectedPathText);
+        if (selectedPathText != null)
+            PathSpawner.Instance.LoadPath(selectedPathText[0]);
     }
 
 }

@@ -7,13 +7,16 @@ using UnityEngine.UI;
 public class AugmentedImageController : MonoBehaviour
 {
     private List<AugmentedImage> currentDetectedAugementedImages = new List<AugmentedImage>();
-    [SerializeField] private GameObject parent;
-    private List<GameObject> parentInstances = new List<GameObject>();
-    public List<GameObject> GetPathParent()
+    [SerializeField] private GameObject parentPrefab;
+    private GameObject parentInstances;
+    public GameObject GetPathParentClone()
     {
-        if (parentInstances.Count <= 0)
+        if (parentInstances == null)
         { Debug.Log("경로의 부모오브젝트가 없습니다"); console4.text = "경로의 부모오브젝트가 없습니다"; }
-        else { return parentInstances; }
+        else
+        {
+            return Instantiate(new GameObject("parentInstanceClone"), parentInstances.transform.position, parentInstances.transform.rotation);
+        }
         return null;
     }
     public Text console;
@@ -25,7 +28,7 @@ public class AugmentedImageController : MonoBehaviour
     private void Start()
     {
 #if UNITY_EDITOR
-        parentInstances.Add(Instantiate(parent, Camera.main.transform.position, Quaternion.identity));
+        parentInstances = Instantiate(parentPrefab, Camera.main.transform.position, Quaternion.identity);
 #endif
     }
 
@@ -48,16 +51,16 @@ public class AugmentedImageController : MonoBehaviour
             if (image.TrackingState == TrackingState.Tracking)
             {
                 Anchor anchor = image.CreateAnchor(image.CenterPose);
-                parent.transform.parent = anchor.transform;
-                parent.transform.localPosition = new Vector3(0, 0, 0);
-                Vector3 position = parent.transform.position;
+                parentPrefab.transform.parent = anchor.transform;
+                parentPrefab.transform.localPosition = new Vector3(0, 0, 0);
+                Vector3 position = parentPrefab.transform.position;
                 if (!flag)
                 {
-                    parentInstances.Add(Instantiate(parent, parent.transform.position, Quaternion.identity));
+                    parentInstances = Instantiate(parentPrefab, parentPrefab.transform.position, Quaternion.identity);
                     flag = true;
                 }
                 console4.text = "이미지 너비 : " + image.ExtentX + "이미지 높이 : " + image.ExtentZ;
-                console2.text = "부모 포지션 : " + position.ToString() + "부모 로테이션 : " + parent.transform.rotation.ToString();
+                console2.text = "부모 포지션 : " + position.ToString() + "부모 로테이션 : " + parentPrefab.transform.rotation.ToString();
 
 
 

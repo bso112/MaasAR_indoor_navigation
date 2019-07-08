@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class AugmentedImageController : MonoBehaviour
 {
+    public GameObject ARCoreDevice;
     private List<AugmentedImage> currentDetectedAugementedImages = new List<AugmentedImage>();
     [SerializeField] private GameObject parentPrefab;
     private GameObject parentInstances;
@@ -22,8 +23,11 @@ public class AugmentedImageController : MonoBehaviour
     public Text console;
     public Text console2;
     public Text console4;
-    private bool flag = false;
 
+    /// <summary>
+    /// 이 조건 안에 들어오는게 전에 실행 됬었는가(조건문 안의 코드를 한번만 실행하기 위한 단순 플래그)
+    /// </summary>
+    private bool isExBefore = false;
 
     private void Start()
     {
@@ -32,6 +36,7 @@ public class AugmentedImageController : MonoBehaviour
 #endif
     }
 
+    int callCount = 0;
 #if UNITY_ANDROID
     void Update()
     {
@@ -48,24 +53,41 @@ public class AugmentedImageController : MonoBehaviour
 
 
 
-            if (image.TrackingState == TrackingState.Tracking)
+            if (image.TrackingState == TrackingState.Tracking && !isExBefore)
             {
+
+                console2.text = "이미지 인식 횟수: " + callCount++;
+                parentInstances = Instantiate(parentPrefab);
                 Anchor anchor = image.CreateAnchor(image.CenterPose);
-                parentPrefab.transform.parent = anchor.transform;
-                parentPrefab.transform.localPosition = new Vector3(0, 0, 0);
-                Vector3 position = parentPrefab.transform.position;
-                if (!flag)
-                {
-                    parentInstances = Instantiate(parentPrefab, parentPrefab.transform.position, Quaternion.identity);
-                    flag = true;
-                }
-                console4.text = "이미지 너비 : " + image.ExtentX + "이미지 높이 : " + image.ExtentZ;
-                console2.text = "부모 포지션 : " + position.ToString() + "부모 로테이션 : " + parentPrefab.transform.rotation.ToString();
-
-
-
+                parentInstances.transform.parent = anchor.transform;
+                parentInstances.transform.localPosition = new Vector3(0, 0, 0);
+                parentInstances.transform.rotation = Quaternion.identity;
+                isExBefore = true; //실행 됬다.
             }
         }
     }
 #endif
+
+    public void RestartSession()
+    {
+        StartCoroutine(_RestartSession());
+    }
+
+    IEnumerator _RestartSession()
+    {
+        console4.text = "세션 재시작";
+        ARCoreSession session = ARCoreDevice.GetComponent<ARCoreSession>();
+        ARCoreSessionConfig myConfig = session.SessionConfig;
+
+        //DestroyImmediate(session);
+        Destroy(session);
+
+        yield return null;
+
+        session = ARCoreDevice.AddComponent<ARCoreSession>();
+        session.SessionConfig = myConfig;
+        session.enabled = true;
+        isExBefore = false;
+
+    }
 }

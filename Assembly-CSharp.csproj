@@ -249,9 +249,11 @@
     <Compile Include="Assets\Scripts\AugmentedImageController.cs" />
     <Compile Include="Assets\Scripts\FileSaveTest.cs" />
     <Compile Include="Assets\Scripts\Global_Local_Test.cs" />
+    <Compile Include="Assets\Scripts\Graph.cs" />
     <Compile Include="Assets\Scripts\ObjectDragger.cs" />
     <Compile Include="Assets\Scripts\PathData.cs" />
     <Compile Include="Assets\Scripts\PathListUpdater.cs" />
+    <Compile Include="Assets\Scripts\PathObject.cs" />
     <Compile Include="Assets\Scripts\PathRouter.cs" />
     <Compile Include="Assets\Scripts\PathSpawner.cs" />
     <Compile Include="Assets\Scripts\SelectPathBtn.cs" />

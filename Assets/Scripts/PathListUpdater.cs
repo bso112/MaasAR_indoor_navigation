@@ -60,7 +60,7 @@ public class PathListUpdater : MonoBehaviour
             //컨텐트를 탐색해 name과 같은 게 없으면 버튼 프리팹을 맵 컨텐트에 추가하고, 버튼 밑 텍스트의 내용을 fileName으로 한다
             foreach (var name in files)
             {
-                string fileName = name.Replace(Application.persistentDataPath + @"\", "");
+                string fileName = name.Replace(Application.persistentDataPath + "/", "");
                 fileName = fileName.Replace(".dat", "");
 
                 if (pathContent.transform.childCount <= 0)
@@ -130,6 +130,15 @@ public class PathListUpdater : MonoBehaviour
             Destroy(selectedPathText[0].transform.parent.gameObject); //해당 버튼을 파괴한다.
         }
 
+    }
+
+    public void DeleteAllPathInstances()
+    {
+        GameObject[] paths = GameObject.FindGameObjectsWithTag("pathObject");
+        foreach(var path in paths)
+        {
+            Destroy(path);
+        }
     }
 
     public void ConfirmPathSelection()

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6742937083699093857}
   - component: {fileID: 3419774824138240007}
   - component: {fileID: 3750074387687748928}
+  - component: {fileID: 5019848355792814946}
   m_Layer: 0
   m_Name: PathObject
   m_TagString: pathObject
@@ -90,8 +91,20 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5019848355792814946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 513917624737524898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbde4a66cbbb1a74a828afe2ac924f71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2471482589815315560
 GameObject:
   m_ObjectHideFlags: 0

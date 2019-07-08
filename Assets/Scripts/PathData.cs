@@ -9,6 +9,10 @@ public class PathData
     /// 경로 이름
     /// </summary>
     public string pathName = "noName";
+
+    public string departure;
+
+    public string destination;
     /// <summary>
     /// 자식 오브젝트들의 위치
     /// </summary>

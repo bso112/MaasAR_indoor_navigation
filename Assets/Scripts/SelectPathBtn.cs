@@ -17,7 +17,7 @@ public class SelectPathBtn : MonoBehaviour
 
 
     /// <summary>
-    /// 맵 불러오기 - 맵 리스트 - 맵 선택
+    /// 자기자신이 선택되면 PathListUpdate에 자기자신에 대한 정보를 넘겨준다.
     /// </summary>
     public void SetSeletedButtonInfo()
     {

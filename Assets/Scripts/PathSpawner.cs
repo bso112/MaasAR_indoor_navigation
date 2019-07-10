@@ -34,6 +34,10 @@ public class PathSpawner : Singleton<PathSpawner>
     public Text console;
     public Text console7;
 
+    public Text InputDeparture;
+    public Text InputDestination;
+
+
     IEnumerator SpawnObjectPerSecond()
     {
         //부모 오브젝트를 생성
@@ -113,7 +117,8 @@ public class PathSpawner : Singleton<PathSpawner>
     {
         PathData pathData = new PathData();
         pathData.pathName = pathName;
-
+        pathData.departure = InputDeparture.text;
+        pathData.destination = InputDestination.text;
 
         foreach (var child in parent.transform.GetComponentsInChildren<Transform>())
         {

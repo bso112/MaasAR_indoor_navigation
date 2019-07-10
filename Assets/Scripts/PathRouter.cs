@@ -21,6 +21,8 @@ public class PathRouter : Singleton<PathRouter>
 
     public Text console;
 
+    private Graph<PathData> graph;
+
 
     // pathDatas(라우팅 테이블)을 초기화한다.
     void Start()
@@ -41,9 +43,21 @@ public class PathRouter : Singleton<PathRouter>
             }
         }
 
-
     }
 
+
+    public void RoutePath(Text departure)
+    {
+        GraphNode<PathData> start = new GraphNode<PathData>();
+        foreach(var node in graph.nodeList)
+        {
+            if(node.Data.departure == departure.text)
+            {
+                start = node;
+            }
+        }
+
+    }
 
     /// <summary>
     /// 두 개의 PathData를 더하고 그 결과를 저장한다.
@@ -80,74 +94,138 @@ public class PathRouter : Singleton<PathRouter>
         return parentA;
     }
 
-    public Graph<string> DrawGraph(List<PathData> pathDatas)
-    {   
+    //public int[,] DrawGraph(List<PathData> pathDatas)
+    //{
+    //    MatrixGraph graph = new MatrixGraph();
+    //    graph.init_graph();
+    //    List<string> nodes = new List<string>();
 
-        //init graph
-        Graph<string> graph = new Graph<string>();
-        GraphNode<string> nodeA = new GraphNode<string>();
-        GraphNode<string> nodeB = new GraphNode<string>();
-        List<string> nodes = new List<string>();
+    //    foreach (var pathData in pathDatas)
+    //    {
+    //        string departure = pathData.departure;
+    //        string destination = pathData.destination;
 
-        string temp = ""; //반복문에서 pathData.departure가 중복되는지 확인하기 위한 임시변수. 
-        foreach (var pathData in pathDatas)
-        {
-            string departure = pathData.departure;
-            string destination = pathData.destination;
+    //        if (!nodes.Contains(departure))
+    //        {
+    //            nodes.Add(departure);
+    //            graph.insert_vertex(pathData);
+    //        }
+    //        if (!nodes.Contains(destination))
+    //        {
+    //            nodes.Add(destination);
+    //            graph.insert_vertex(pathData);
+    //        }
+    //    }
 
-            if (!nodes.Contains(departure))
-            {
-                nodeA = graph.AddNode(departure);
-                nodes.Add(nodeA.Data);
-            }
-            if(!nodes.Contains(destination))
-            {
-                nodeB = graph.AddNode(destination);
-                nodes.Add(nodeB.Data);
-            }
 
-            graph.AddEdge(nodeA, nodeB, true, pathData.childPositions.Count);
-        }
-        //그래프를 출력한다.
-        graph.DebugPrintLinks();
+    //    for (int i = 0; i < nodes.Count; i++)
+    //    {
+    //        for (int i = 0; i < nodes.Count; i++)
+    //        {
+    //            graph.insert_edge2
+    //        }
+    //    }
+    //}
 
-        return graph;
-    }
+    //public Graph<PathData> DrawGraph(List<PathData> pathDatas)
+    //{
 
-    public void Djikstra(string departure, string destination, Graph<string> graph)
-    {   
-        int[] dist = new int[graph.NodeCount()];
-        List<GraphNode<string>> found = new List<GraphNode<string>>();
-        int[] path = new int[graph.NodeCount()];
-        GraphNode<string> depNode = graph.SearchNode(departure);
+    //    Graph<PathData> graph = new Graph<PathData>();
+    //    //pathData에서 노드를 솎아내기 위한 리스트
+    //    List<string> nodes = new List<string>();
 
-        int minIndex = Choos_vertex(depNode);
+    //    GraphNode<PathData> nodeA = new GraphNode<PathData>();
+    //    GraphNode<PathData> nodeB = new GraphNode<PathData>();
 
-        int i, u, w;
+    //    foreach (var pathData in pathDatas)
+    //    {
+    //        string departure = pathData.departure;
+    //        string destination = pathData.destination;
 
-        for(i =0; i<graph.NodeCount(); i++)
-        {
-        }
-            
-    }
+    //        if (!nodes.Contains(departure))
+    //        {
+    //            nodeA.Data = pathData;
+    //            nodes.Add(departure);
+    //        }
+    //        if (!nodes.Contains(destination))
+    //        {
+    //            nodes.Add(destination);
+    //        }
 
-    /// <summary>
-    /// 해당 노드의 이웃으로 가는 경로 중 가장 가중치가 낮은 경로의 인덱스를 반환한다. 찾지못하면 -1을 반환한다.
-    /// </summary>
-    /// <param name="node"></param>
-    /// <returns></returns>
-    private int Choos_vertex(GraphNode<string> node)
-    {
-        int min = int.MaxValue;
-        int minIndex = -1;
-        for(int i = 0; i<node.Neighbors.Count; i++)
-        {
-            if(node.Weights[i] < min)
-            {
-                min = node.Weights[i];
-            }
-        }
-        return minIndex;
-    }
+
+
+    //        graph.AddEdge(nodeA, nodeB, true, pathData.childPositions.Count);
+    //    }
+
+    //    foreach(var node in nodes)
+    //    {
+
+    //    Debug.Log(node);
+    //    }
+    //    //그래프를 출력한다.
+    //    graph.DebugPrintLinksPath(graph.nodeList);
+
+    //    return graph;
+    //}
+
+    //public void Djikstra(GraphNode<PathData> start,  Graph<PathData> graph)
+    //{
+    //    int[] dist = new int[graph.NodeCount()];
+    //    List<GraphNode<PathData>> found = new List<GraphNode<PathData>>();
+
+    //    //노드리스트
+    //    List<GraphNode<PathData>> nodeList = graph.nodeList;
+
+    //    Dictionary<string, int> nodeNumber = new Dictionary<string, int>();
+    //    for (int i = 0; i < nodeList.Count; i++)
+    //    {
+    //        nodeNumber.Add(nodeList[i].Data.departure, i);
+    //    }
+
+    //    //dist 초기화 (dist를 무한대로 초기화하고 출발지점과 연결되 있는 노드의 가중치를 업데이트한다.)
+    //    for (int i = 0; i < dist.Length; i++)
+    //    {
+    //        dist[i] = int.MaxValue;
+    //    }
+    //    for(int i = 0; i<start.Neighbors.Count; i++)
+    //    {
+    //        int number = -1;
+    //        nodeNumber.TryGetValue(start.Neighbors[i].Data.departure ,out number);
+    //        dist[number] = start.Weights[i];
+    //    }
+
+    //    int min = int.MaxValue;
+    //    while (found.Count >= nodeList.Count)
+    //    {
+    //        //가장 가중치가 낮은 노드를 찾아 min에 넣는다.
+    //        GraphNode<PathData> nearestNode = new GraphNode<PathData>();
+    //        for (int i = 0; i < dist.Length; i++)
+    //        {
+    //            if(dist[i] < min)
+    //            {
+    //                min = dist[i];
+    //                nearestNode = nodeList[i];
+    //            }
+
+    //        }
+    //        //찾았다고 표시한다.
+    //        found.Add(nearestNode);
+    //        //갱신한다. 
+    //        for (int i = 0; i < nearestNode.Neighbors.Count; i++)
+    //        {
+    //            if (start.Weights[start.Neighbors.IndexOf(nearestNode)] + nearestNode.Weights[i] < start.Weights[start.Neighbors.IndexOf(nearestNode.Neighbors[i])])
+    //            {
+    //                dist[i] = start.Weights[start.Neighbors.IndexOf(nearestNode)] + nearestNode.Weights[i];
+    //            }
+    //        }
+    //    }
+
+    //    foreach(var d in dist)
+    //    {
+    //        Debug.Log(start.Data.departure + "로 부터 각 노드까지의 최단거리 :" + d);
+    //    }
+    //}
+
+    
 
 }

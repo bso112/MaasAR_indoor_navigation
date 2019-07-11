@@ -82,14 +82,18 @@ public class PathListUpdater : MonoBehaviour
 
     public void JoinTwoPathAndSave(Text inputText)
     {
+        ToggleController toggleController = GameObject.Find("ToggleController").GetComponent<ToggleController>();
+        toggleController.GetSelection();
         try
         {
-            if (selectedPathText.Length >= 2)
+            if (selectedPathText[0] != null && selectedPathText[1] != null)
             {
                 GameObject parentA = PathSpawner.Instance.LoadPath(selectedPathText[0]);
                 GameObject parentB = PathSpawner.Instance.LoadPath(selectedPathText[1]);
                 PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text);
+
             }
+
         }
         catch(Exception e)
         {

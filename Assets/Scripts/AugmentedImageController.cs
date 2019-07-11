@@ -59,7 +59,7 @@ public class AugmentedImageController : MonoBehaviour
             {
                 parentInstances = Instantiate(parentPrefab);
                 console2.text = "이미지 인식 횟수: " + callCount++;
-                parentInstances.name = "parent";
+                parentInstances.name = "parent" + callCount;
                 Anchor anchor = image.CreateAnchor(image.CenterPose);
                 parentInstances.transform.parent = anchor.transform;
                 parentInstances.transform.localPosition = new Vector3(0, 0, 0);
@@ -99,5 +99,7 @@ public class AugmentedImageController : MonoBehaviour
         session.SessionConfig = myConfig;
         session.enabled = true;
         dataBaseIndex.Clear();
+        callCount = 0;
     }
+
 }

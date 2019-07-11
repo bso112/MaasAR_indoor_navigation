@@ -59,12 +59,12 @@ public class PathSpawner : Singleton<PathSpawner>
         createMapBtn.gameObject.SetActive(true);
     }
 
+
     /// <summary>
     /// 경로 만들기를 종료하고 경로 목록에 저장한다. 
     /// </summary>
     public void CreatePath(Text InputText)
-    {
-
+    {   
         string pathName = InputText.text;
 
         //로컬에 경로를 저장한다.

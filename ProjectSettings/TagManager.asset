@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ManipulationSystem
   - pathObject
+  - Manager
   layers:
   - Default
   - TransparentFX

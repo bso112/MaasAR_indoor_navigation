@@ -57,7 +57,7 @@ public class PathListUpdater : MonoBehaviour
                 texts.Add(_texts[i].text);
             }
 
-            //컨텐트를 탐색해 name과 같은 게 없으면 버튼 프리팹을 맵 컨텐트에 추가하고, 버튼 밑 텍스트의 내용을 fileName으로 한다
+            //컨텐트를 탐색해 fileName과 같은 게 없으면 버튼 프리팹을 맵 컨텐트에 추가하고, 버튼 밑 텍스트의 내용을 fileName으로 한다
             foreach (var name in files)
             {
 #if UNITY_EDITOR
@@ -82,12 +82,20 @@ public class PathListUpdater : MonoBehaviour
 
     public void JoinTwoPathAndSave(Text inputText)
     {
-        if(selectedPathText.Length >= 2)
+        try
         {
-            GameObject parentA = PathSpawner.Instance.LoadPath(selectedPathText[0]);
-            GameObject parentB = PathSpawner.Instance.LoadPath(selectedPathText[1]);
-            PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text);
+            if (selectedPathText.Length >= 2)
+            {
+                GameObject parentA = PathSpawner.Instance.LoadPath(selectedPathText[0]);
+                GameObject parentB = PathSpawner.Instance.LoadPath(selectedPathText[1]);
+                PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text);
+            }
         }
+        catch(Exception e)
+        {
+            console.text = e.Message.ToString();
+        }
+        
         
     }
 
@@ -141,7 +149,8 @@ public class PathListUpdater : MonoBehaviour
         GameObject[] paths = GameObject.FindGameObjectsWithTag("pathObject");
         foreach(var path in paths)
         {
-            Destroy(path);
+            if(path.name != "parent")
+                Destroy(path);
         }
     }
 

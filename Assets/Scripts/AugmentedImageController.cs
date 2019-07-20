@@ -77,6 +77,8 @@ public class AugmentedImageController : MonoBehaviour
                 parentInstances = Instantiate(parentPrefab, player.transform.position, player.transform.rotation);
                 parentInstances.name = "parent";
                 dataBaseIndex.Add(image.DatabaseIndex);
+                GetComponent<AudioSource>().Play();
+
 
             }
         }

@@ -44,8 +44,7 @@ public class PathSpawner : Singleton<PathSpawner>
         parent = augmentedImageController.GetPathParentClone();
         while (true)
         {   
-            Instantiate(pathObject, player.transform.position, player.transform.rotation).transform.SetParent(parent.transform); //만들어진 pathObject를 parent의 자식으로 한다.
-            console7.text = "플레이어 로테이션: " + player.transform.rotation.ToString();
+            Instantiate(pathObject, player.transform.position, player.transform.rotation).transform.SetParent(parent.transform); 
             yield return new WaitForSeconds(1.0f);
         }
     }

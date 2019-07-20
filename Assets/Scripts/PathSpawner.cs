@@ -45,7 +45,7 @@ public class PathSpawner : Singleton<PathSpawner>
         while (true)
         {   
             Instantiate(pathObject, player.transform.position, player.transform.rotation).transform.SetParent(parent.transform); 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(2.0f);
         }
     }
     /// <summary>
@@ -65,7 +65,8 @@ public class PathSpawner : Singleton<PathSpawner>
     public void CreatePath(Text InputText)
     {   
         string pathName = InputText.text;
-
+        //경로의 끝을 확실히 하기 위해 pathObject를 스폰한다. 
+        Instantiate(pathObject, player.transform.position, player.transform.rotation).transform.SetParent(parent.transform);
         //로컬에 경로를 저장한다.
         SavePath(parent, pathName);
 
@@ -106,7 +107,9 @@ public class PathSpawner : Singleton<PathSpawner>
             obj.name = "Loaded Path";
             obj.transform.SetParent(parent.transform);
             obj.transform.localPosition = pathData.childPositions[i];
+            obj.transform.localRotation = pathData.childRotation[i];
         }
+
 
         return parent;
     }
@@ -125,6 +128,7 @@ public class PathSpawner : Singleton<PathSpawner>
             if (child.transform != parent.transform && child.transform.childCount > 0)
             {
                 pathData.childPositions.Add(child.transform.localPosition);
+                pathData.childRotation.Add(child.transform.localRotation);
             }
 
         }
@@ -137,8 +141,6 @@ public class PathSpawner : Singleton<PathSpawner>
         PathRouter.Instance.AddPathData(pathData, name); //라우팅테이블 갱신
 
         f.Close();
-
-
 
     }
 

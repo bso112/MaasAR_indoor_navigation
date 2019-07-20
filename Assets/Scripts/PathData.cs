@@ -13,9 +13,11 @@ public class PathData
     public string departure;
 
     public string destination;
+
     /// <summary>
     /// 자식 오브젝트들의 위치
     /// </summary>
     public List<Vector.SerializableVector3> childPositions = new List<Vector.SerializableVector3>();
+    public List<SerializableQuaternion> childRotation = new List<SerializableQuaternion>();
 
 }

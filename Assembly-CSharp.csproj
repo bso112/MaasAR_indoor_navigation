@@ -252,9 +252,11 @@
      <Compile Include="Assets\Scripts\PlayerMovement.cs" />
      <Compile Include="Assets\Scripts\SelectionSender.cs" />
      <Compile Include="Assets\Scripts\SelectPathBtn.cs" />
+     <Compile Include="Assets\Scripts\SerializbleQuaternion.cs" />
      <Compile Include="Assets\Scripts\Singleton.cs" />
      <Compile Include="Assets\Scripts\ToggleController.cs" />
      <Compile Include="Assets\Scripts\Vector.cs" />
+     <Compile Include="Assets\TestRotate.cs" />
      <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\PlaneGrid.shader" />
      <None Include="Assets\GoogleARCore\Examples\Common\Materials\Shaders\MobileDiffuseWithLightEstimation.shader" />
      <None Include="Assets\GoogleARCore\SDK\Materials\ARBackground.shader" />

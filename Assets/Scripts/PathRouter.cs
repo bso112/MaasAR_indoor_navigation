@@ -65,9 +65,10 @@ public class PathRouter : Singleton<PathRouter>
     /// <param name="pathA"></param>
     /// <param name="pathB"></param>
     /// <param name="pathName"></param>
-    public void JoinAndSavePath(GameObject parentA, GameObject parentB, string pathName)
+    public void JoinAndSavePath(GameObject parentA, GameObject parentB, string pathName, bool IsPerpendicularJoin, bool isOppositeJoin,
+        bool isLeftJoin, bool isRightJoin)
     {
-        GameObject parent = JoinTwoPathData(parentA, parentB);
+        GameObject parent = JoinTwoPathData(parentA, parentB, IsPerpendicularJoin, isOppositeJoin, isLeftJoin, isRightJoin);
         PathSpawner.Instance.SavePath(parent, pathName);
     }
 
@@ -78,11 +79,28 @@ public class PathRouter : Singleton<PathRouter>
     /// <param name="pathA"></param>
     /// <param name="pathB"></param>
     /// <returns></returns>
-    public GameObject JoinTwoPathData(GameObject parentA, GameObject parentB)
+    public GameObject JoinTwoPathData(GameObject parentA, GameObject parentB, bool IsPerpendicularJoin, bool isOppositeJoin, bool isLeftJoin, bool isRightJoin)
     {
         parentB.transform.SetParent(parentA.transform.GetChild(parentA.transform.childCount - 1)); // parentA 경로의 맨 마지막 오브젝트를 parntB의 부모로 삼는다.
         parentB.transform.localPosition = Vector3.zero;
-        parentB.transform.rotation = Quaternion.identity;
+        if (IsPerpendicularJoin)
+        {   
+            if(isLeftJoin)
+            {
+                parentB.transform.Rotate(new Vector3(0, -90, 0));
+                console.text = "-90도 뒤집힘!";
+            }
+            if(isRightJoin)
+            {
+                parentB.transform.Rotate(new Vector3(0, 90, 0));
+                console.text = "90도 뒤집힘!";
+            }
+        }
+        else if(isOppositeJoin)
+        {
+            parentB.transform.Rotate(new Vector3(0, -180, 0));
+            console.text = "-180도 뒤집힘!";
+        }
         foreach (var child in parentB.transform.GetComponentsInChildren<Transform>())
         {
             if (child != parentB.transform && child.transform.childCount > 0)

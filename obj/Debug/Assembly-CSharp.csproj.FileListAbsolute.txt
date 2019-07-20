@@ -1,0 +1,2 @@
+C:\Users\bso11\Desktop\workspace\UnityWork\ARCore_1.9_Unity_18.3.1_Maas\obj\Debug\Assembly-CSharp.csprojAssemblyReference.cache
+C:\Users\bso11\Desktop\workspace\UnityWork\ARCore_1.9_Unity_18.3.1_Maas\obj\Debug\Assembly-CSharp.csproj.CoreCompileInputs.cache

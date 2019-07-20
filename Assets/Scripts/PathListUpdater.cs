@@ -35,6 +35,31 @@ public class PathListUpdater : MonoBehaviour
     /// </summary>
     [HideInInspector] public static Text[] selectedPathText = new Text[2];
 
+    // 두 경로의 합은 어떤 종류인가?
+    public Toggle checkifPerpendicular;
+    public Toggle checkifOpposite;
+    public Toggle checkifIsLeft;
+    public Toggle checkifIsRight;
+
+    /// <summary>
+    /// 합치려는 두 경로의 이미지타깃의 각도차이가 90도인가?
+    /// </summary>
+    private bool isPerpendicularJoin = false;
+
+    /// <summary>
+    /// 합치려는 두 경로의 이미지타깃의 각도차이가 180도인가?
+    /// </summary>
+    private bool isOppositeJoin = false;
+
+    /// <summary>
+    /// 합치는 연산에서, 피연산자 A에 대해 B의 위치가 왼쪽인가?
+    /// </summary>
+    private bool isLeftJoin = false;
+    /// <summary>
+    /// 합치는 연산에서, 피연산자 A에 대해 B의 위치가 오른쪽인가?
+    /// </summary>
+    private bool isRightJoin = false;
+
 
     private void Start()
     {
@@ -86,9 +111,14 @@ public class PathListUpdater : MonoBehaviour
         {
             if (selectedPathText[0] != null && selectedPathText[1] != null)
             {
+                isPerpendicularJoin = checkifPerpendicular.isOn;
+                isOppositeJoin = checkifOpposite.isOn;
+                isLeftJoin = checkifIsLeft.isOn;
+                isRightJoin = checkifIsRight.isOn;
+
                 GameObject parentA = PathSpawner.Instance.LoadPath(selectedPathText[0]);
                 GameObject parentB = PathSpawner.Instance.LoadPath(selectedPathText[1]);
-                PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text);
+                PathRouter.Instance.JoinAndSavePath(parentA, parentB, inputText.text, isPerpendicularJoin, isOppositeJoin, isLeftJoin, isRightJoin);
 
             }
 

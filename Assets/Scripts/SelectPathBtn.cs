@@ -32,9 +32,6 @@ public class SelectPathBtn : MonoBehaviour
         btn = GetComponent<Button>();
         btn.onClick.AddListener(SetSeletedButtonInfo);
         btn.onClick.AddListener(ShowButtonInfo);
-        //자신의 토글을 토글컨트롤러에 등록한다.
-        ToggleController toggleController = GameObject.Find("ToggleController").GetComponent<ToggleController>();
-        toggleController.toggles.Add(transform.GetComponentInChildren<Toggle>());
 
     }
 

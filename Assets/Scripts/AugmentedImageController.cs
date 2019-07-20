@@ -30,7 +30,14 @@ public class AugmentedImageController : MonoBehaviour
     /// <summary>
     /// 전에 이미 인식된 이미지들의 리스트
     /// </summary>
-    private List<int> dataBaseIndex = new List<int>(); 
+    private List<int> dataBaseIndex = new List<int>();
+
+
+    GameObject player;
+
+
+
+    
 
     private void Start()
     {
@@ -38,32 +45,37 @@ public class AugmentedImageController : MonoBehaviour
         parentInstances = Instantiate(parentPrefab, Camera.main.transform.position, Quaternion.identity);
 #endif
 
+        player = PathSpawner.Instance.player;
+        
+
     }
+
+
+
 
 #if UNITY_ANDROID
     void Update()
-    {
+    {   
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
-        //TrackableQueryFilter.Updated는 해당 프레임에 위치, 상태 등이 갱신된 증강이미지들이 들어가는데, 갱신되는 순서는 랜덤이니 랜덤하게 currentDetectedAugementedImages에 들어감.
+   
         Session.GetTrackables<AugmentedImage>(currentDetectedAugementedImages, TrackableQueryFilter.Updated);
+
+        
 
         foreach (var image in currentDetectedAugementedImages)
         {
-            console.text = "Session:" + Session.Status.ToString() + image.Name + ": " + image.TrackingState.ToString();
+
 
             //새로운 이미지가 트래킹 상태라면
             if (image.TrackingState == TrackingState.Tracking && !dataBaseIndex.Contains(image.DatabaseIndex))
-            {
-                parentInstances = Instantiate(parentPrefab);
-                console2.text = "이미지 인식 횟수: " + callCount++;
-                parentInstances.name = "parent" + callCount;
-                Anchor anchor = image.CreateAnchor(image.CenterPose);
-                parentInstances.transform.parent = anchor.transform;
-                parentInstances.transform.localPosition = new Vector3(0, 0, 0);
-                parentInstances.transform.rotation = Quaternion.identity;
+            {   
+                
+                parentInstances = Instantiate(parentPrefab, player.transform.position, player.transform.rotation);
+                parentInstances.name = "parent";
                 dataBaseIndex.Add(image.DatabaseIndex);
 
             }

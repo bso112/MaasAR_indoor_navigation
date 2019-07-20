@@ -6,9 +6,7 @@ public class PathObject : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "pathObject" && other.name != "Parent")
-        {
-            Destroy(other);
-        }
+        Destroy(other.gameObject);
     }
+
 }

@@ -82,8 +82,6 @@ public class PathListUpdater : MonoBehaviour
 
     public void JoinTwoPathAndSave(Text inputText)
     {
-        ToggleController toggleController = GameObject.Find("ToggleController").GetComponent<ToggleController>();
-        toggleController.GetSelection();
         try
         {
             if (selectedPathText[0] != null && selectedPathText[1] != null)

@@ -1,7 +1,6 @@
-# MaasAR_indoor_navigation
-indoor navigation using ARCore
+# MaasAR_indoor_navigation(Unity/ARCore)
 
-![hackerthon](hackerthon.png)
+![hackerthon](hackerthon.jpg)
 
 we participate in 'Seoul Integrated Maas(Mobile as a Service) hackerthon.' 
 

@@ -5,7 +5,7 @@ we participate in 'Seoul Integrated Maas(Mobile as a Service) hackerthon.'
 
 
 
-![hackerthon](hackerthon.jpg)
+![hackerthon](hackerthon.jpg = 600x800)
 
 
 
